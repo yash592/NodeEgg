@@ -1,3 +1,5 @@
+ 
+
 CREATE table inventory (
 
 id INTEGER AUTO_INCREMENT NOT NULL,
@@ -12,4 +14,8 @@ PRIMARY KEY(id)
 DESCRIBE inventory
 
 SELECT * FROM inventory
+
+
+
+
 

@@ -7,6 +7,7 @@
 var mysql = require('mysql');
 var inquirer = require("inquirer");
 var npmTable = require("console.table");
+var totalSpent = 0;
 
 
 var connection = mysql.createConnection ({
@@ -56,7 +57,13 @@ function showProducts() {
 
   
 
-}
+};
+
+// =====================================
+
+// BUY A PRODUCT
+
+// =====================================
 
 function buyAProduct() {
 
@@ -79,7 +86,15 @@ function buyAProduct() {
 
 		]).then(function(response){
 
-			console.log("Bought!");
+			var query = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + response.userNum + " WHERE id = " + response.userBuy, function(err, res) {
+
+				console.table("\n You just bought " + response.userNum + " units of " + response.userBuy + "\n");
+
+				// UPDATE inventory SET stock_quantity = stock_quantity - 2 WHERE id = "2"
+
+				showProducts();
+
+			})
 
 		})
 }
