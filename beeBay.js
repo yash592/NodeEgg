@@ -71,7 +71,7 @@ function buyAProduct() {
 
 	{
 		type: "input",
-		name: "userBuy",
+		name: "id",
 		message: "Enter the Item ID of the item you'd like to buy!"
 
 	},
@@ -86,11 +86,21 @@ function buyAProduct() {
 
 		]).then(function(response){
 
-			var query = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + response.userNum + " WHERE id = " + response.userBuy, function(err, res) {
+			var resID = response.id;
+			var resUnits = response.userNum
 
-				console.table("\n You just bought " + response.userNum + " units of " + response.userBuy + "\n");
+			var query = connection.query("SELECT stock_quantity FROM inventory WHERE id = ?", [resID], function(err, res) {
 
-				// UPDATE inventory SET stock_quantity = stock_quantity - 2 WHERE id = "2"
+				if (res[0].stock_quantity < resUnits) {
+					console.log("\n Not enough stock. Call us to get offers on bulk orders! \n");
+				}
+
+				else if (res[0].stock_quantity >= resUnits) {
+					console.log("\n In stock! \n");
+					
+				}				
+
+				
 
 				showProducts();
 
@@ -99,3 +109,13 @@ function buyAProduct() {
 		})
 }
 
+
+// var query = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + response.userNum + " WHERE id = " + response.userBuy, function(err, res) {
+
+// 	console.table("\n You just bought " + response.userNum + " units of " + response.userBuy + "\n");
+
+// 	// UPDATE inventory SET stock_quantity = stock_quantity - 2 WHERE id = "2"
+
+// 	console.log(res);
+
+// 	showProducts();
