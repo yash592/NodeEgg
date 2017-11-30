@@ -7,6 +7,7 @@
 var mysql = require('mysql');
 var inquirer = require("inquirer");
 var npmTable = require("console.table");
+var figlet = require('figlet');
 var totalSpent = 0;
 
 
@@ -22,8 +23,7 @@ var connection = mysql.createConnection ({
 connection.connect(function(err) {
 	if(!err) {
 		console.log("Connected!");
-		showProducts();
-		
+		showProducts();		
 	}
 });
 
@@ -33,9 +33,21 @@ connection.connect(function(err) {
 
 // =====================================
 
+figlet('beeBay!', function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(data)
+});
+
 function showProducts() {
 
-	console.log("WELCOME TO THE REVOLUTIONARY NODE SHOPPING STORE beeBAY! \n")
+	
+
+
+	console.log("WELCOME TO THE REVOLUTIONARY NODE SHOPPING STORE beeBay! \n")
 
 	var query = connection.query("SELECT * FROM inventory", function(err, res) {
 
@@ -93,6 +105,7 @@ function buyAProduct() {
 
 				if (res[0].stock_quantity < resUnits) {
 					console.log("\n Not enough stock. Call us to get offers on bulk orders! \n");
+					buyAProduct();
 				}
 
 				else if (res[0].stock_quantity >= resUnits) {
@@ -100,6 +113,8 @@ function buyAProduct() {
 					var queryOne = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + resUnits + " WHERE id = " + resID, function(err, res) {
 
 					console.table("\n You just bought " + resUnits + " units of " + resID + "\n");
+
+					showProducts();
 
 					// var amountSpent = resUnits*res[0].price;
 
