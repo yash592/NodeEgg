@@ -96,18 +96,28 @@ function buyAProduct() {
 				}
 
 				else if (res[0].stock_quantity >= resUnits) {
-					console.log("\n In stock! \n");
 					
+					var queryOne = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + resUnits + " WHERE id = " + resID, function(err, res) {
+
+					console.table("\n You just bought " + resUnits + " units of " + resID + "\n");
+
+					// var amountSpent = resUnits*res[0].price;
+
+					// console.log("Total amount " + amountSpent);
+
+
+					});
+
 				}				
 
 				
 
-				showProducts();
+				
 
-			})
+			});
 
-		})
-}
+		}); 
+} // function response ends here
 
 
 // var query = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + response.userNum + " WHERE id = " + response.userBuy, function(err, res) {
