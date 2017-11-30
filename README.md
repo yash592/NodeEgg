@@ -1,4 +1,4 @@
-![beeBay](https://i.imgur.com/LDupjcF.png)
+![beeBay](https://i.imgur.com/HOUGNlf.png)
 
 # beeBay 
 
