@@ -11,6 +11,7 @@ var figlet = require('figlet');
 var totalSpent = 0;
 
 
+
 var connection = mysql.createConnection ({
 	host: 'localhost',
 	user: 'root',
@@ -23,7 +24,7 @@ var connection = mysql.createConnection ({
 connection.connect(function(err) {
 	if(!err) {
 		console.log("Connected!");
-		showProducts();		
+		setTimeout(showProducts, 2000);		
 	}
 });
 
@@ -42,7 +43,11 @@ figlet('beeBay!', function(err, data) {
     console.log(data)
 });
 
+
+
 function showProducts() {
+
+	
 
 	
 
@@ -54,10 +59,11 @@ function showProducts() {
 		if (err) throw err
 
 		for(var i = 0; i < res.length; i++) {
-
 			
-
+			
 		};
+
+		
 
 		console.table(res);
 
@@ -70,6 +76,8 @@ function showProducts() {
   
 
 };
+
+
 
 // =====================================
 
@@ -101,7 +109,9 @@ function buyAProduct() {
 			var resID = response.id;
 			var resUnits = response.userNum
 
-			var query = connection.query("SELECT stock_quantity FROM inventory WHERE id = ?", [resID], function(err, res) {
+
+
+			var queryOne = connection.query("SELECT stock_quantity FROM inventory WHERE id = ?", [resID], function(err, res) {
 
 				if (res[0].stock_quantity < resUnits) {
 					console.log("\n Not enough stock. Call us to get offers on bulk orders! \n");
@@ -110,15 +120,15 @@ function buyAProduct() {
 
 				else if (res[0].stock_quantity >= resUnits) {
 					
-					var queryOne = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + resUnits + " WHERE id = " + resID, function(err, res) {
+					var queryTwo = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + resUnits + " WHERE id = " + resID, function(err, res) {
 
 					console.table("\n You just bought " + resUnits + " units of " + resID + "\n");
 
+					// console.log(res);
+
 					showProducts();
 
-					// var amountSpent = resUnits*res[0].price;
-
-					// console.log("Total amount " + amountSpent);
+					
 
 
 					});

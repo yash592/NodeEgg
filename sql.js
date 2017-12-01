@@ -1,3 +1,5 @@
+ 
+
 CREATE table inventory (
 
 id INTEGER AUTO_INCREMENT NOT NULL,
@@ -12,4 +14,12 @@ PRIMARY KEY(id)
 DESCRIBE inventory
 
 SELECT * FROM inventory
+
+SELECT * FROM inventory; UPDATE inventory SET stock_quantity = stock_quantity - 2 WHERE id = "2"
+
+SELECT stock_quantity FROM inventory WHERE id = "2"
+
+
+
+
 
