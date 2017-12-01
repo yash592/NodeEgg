@@ -110,7 +110,6 @@ function buyAProduct() {
 			var resUnits = response.userNum
 
 
-
 			var queryOne = connection.query("SELECT stock_quantity FROM inventory WHERE id = ?", [resID], function(err, res) {
 
 				if (res[0].stock_quantity < resUnits) {
@@ -145,12 +144,4 @@ function buyAProduct() {
 } // function response ends here
 
 
-// var query = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + response.userNum + " WHERE id = " + response.userBuy, function(err, res) {
 
-// 	console.table("\n You just bought " + response.userNum + " units of " + response.userBuy + "\n");
-
-// 	// UPDATE inventory SET stock_quantity = stock_quantity - 2 WHERE id = "2"
-
-// 	console.log(res);
-
-// 	showProducts();
