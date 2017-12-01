@@ -250,11 +250,18 @@ var figlet = require('figlet');
 							var price = response.newPrice;
 							var stock = response.newStock;
 
-							console.log(product);
+							var pro = ("'" + response.newProduct + "'");
+							var dep = ("'" + response.newDept + "'");
+							var prc = ("'" + response.newPrice + "'");
+							var stk = ("'" + response.newStock + "'");
+
+							// console.log(pro, dep, prc, stk);
+
+							// console.log(product);
 
 							console.log("\n ------------Adding new product-------------\n");
-							var query = connection.query("INSERT into inventory (product_name, department_name, price, stock_quantity) VALUES("+ response.newProduct +","+  response.newDept +"," + response.newPrice +", "+ response.newStock +")");
-							console.log(query);
+							var query = connection.query("INSERT into inventory (product_name, department_name, price, stock_quantity) VALUES(" +  pro +","+  dep +"," + prc +", "+ stk +")");
+							// console.log(query);
 							setTimeout(inventory, 2000);
 						})
 
