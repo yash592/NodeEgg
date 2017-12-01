@@ -16,6 +16,14 @@ Tech used:
 
 ## DEMO:
 
-* _Customer Mode_
+* _**Customer Mode**_
 
 ![cust](https://i.imgur.com/S9FN4qs.gif)
+
+
+
+
+
+* _**Manager Mode**_
+
+![manager](https://i.imgur.com/TdRPQxU.gif)
