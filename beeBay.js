@@ -58,16 +58,16 @@ function showProducts() {
 
 		if (err) throw err
 
-		for(var i = 0; i < res.length; i++) {
+		// for(var i = 0; i < res.length; i++) {
 			
 			
-		};
-
-		
+		// };		
 
 		console.table(res);
 
 		buyAProduct();
+
+		// totalSpent = totalSpent + totalSpent;
 
 
 	});
@@ -110,7 +110,7 @@ function buyAProduct() {
 			var resUnits = response.userNum
 
 
-			var queryOne = connection.query("SELECT stock_quantity FROM inventory WHERE id = ?", [resID], function(err, res) {
+			var queryOne = connection.query("SELECT * FROM inventory WHERE id = ?", [resID], function(err, res) {
 
 				if (res[0].stock_quantity < resUnits) {
 					console.log("\n Not enough stock. Call us to get offers on bulk orders! \n");
@@ -122,17 +122,56 @@ function buyAProduct() {
 					var queryTwo = connection.query("UPDATE inventory SET stock_quantity = stock_quantity - " + resUnits + " WHERE id = " + resID, function(err, res) {
 
 					console.table("\n You just bought " + resUnits + " units of " + resID + "\n");
-
-					// console.log(res);
-
-					showProducts();
-
+					keepShopping();			
 					
+
+					// console.log(res);					
 
 
 					});
 
-				}				
+					totalSpent = res[0].price * resUnits;
+					console.log("\n Total amount spent: $" + totalSpent + "\n");
+
+
+
+					function keepShopping () {
+
+						inquirer.prompt([
+
+						{
+							type: "confirm",
+							name: "keepshopping",
+							message: "Would you like to keep shopping or checkout?"
+
+						}
+
+							]).then(function(res){
+
+								if(res.keepshopping === true) {
+									showProducts();
+								}
+
+								else {
+
+									console.log("\n Total amount spent: $" + totalSpent + "\n")
+								}
+							})
+
+
+					}
+
+						
+
+					// console.log("\n Total amount spent: $" + totalAmount + "\n");
+
+					
+
+				}
+
+				
+
+							
 
 				
 
