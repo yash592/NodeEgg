@@ -16,7 +16,57 @@ var connection = mysql.createConnection ({
 connection.connect(function(err) {
 	if(!err) {
 		console.log("Connected!");
-		// setTimeout(showProducts, 2000);	
-		// setTimeout(managerView, 1000);	
+		setTimeout(supervisorView, 1000);	
 	}
 });
+
+figlet('Supervisor Mode!', function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(data)
+});
+
+function supervisorView () {
+
+	inquirer.prompt([
+
+	{
+		type: "list",
+		name: "supChoice",
+		message: "What would you like to see?",
+		choices: ["View Product Sales by Dept", "Create New Department"]
+	}
+
+		]).then(function(res){
+
+			switch(res.supChoice) {
+
+				case "View Product Sales by Dept":
+				console.log("---------------SALES-----------------");
+				deptSales();
+				break;
+
+				case "Create New Department":
+				console.log("-------------NEW DEPT----------------");
+				newDept();
+				break;
+			}
+		});
+
+		function deptSales() {
+
+			console.log("deptSales");
+
+		}
+
+		function newDept() {
+
+			console.log("newDept")
+
+		}
+}
+
+	
